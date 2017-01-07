@@ -36,32 +36,17 @@ Serial.println("new client");
 while(!client.available()){
   delay(1);
 } 
-      client.find("led=");
-      char s = client.read();
-      if(s=='0'){
-        action = "led=0";
-        Serial.println(action);
-        digitalWrite(ledPin, LOW);
-              client.flush();
-      }
-      else if(s=='1'){
-        action = "led=1";
-        digitalWrite(ledPin, HIGH);
-        Serial.println(action);
-      client.flush();
-      }
-      else{
-        action = "led=?";
-          Serial.println(action);
-            client.flush();
-      }
-    int val =s;
+while(Serial.available())
+{
+String  inputString=Serial.readString();
+  Serial.println(inputString);
+} 
+     // client.find("led=");
+   char s = client.read();
+   //   Serial.println(s);
     client.flush();
   // Prepare the response this will make sure that
-  String a = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n<!DOCTYPE HTML>\r\n<html>\r\nGPIO is now ";
-  a += (val)?"1":"0";
-  a += "</html>\n";
-
+  String a = "HTTP/1.1 200 OK\r\n\n";
   // Send the response to the client
   client.print(a);
   delay(1);
